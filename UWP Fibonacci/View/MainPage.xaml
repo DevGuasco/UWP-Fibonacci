@@ -1,0 +1,162 @@
+﻿<Page
+    x:Class="UWP_Fibonacci.View.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.UI.Xaml.Controls"
+    xmlns:fcu="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract,5)"
+    mc:Ignorable="d"
+    RequestedTheme="Dark">
+
+    <Page.Resources>
+        <Style TargetType="Button" x:Key="ButtonStyle">
+            <Setter Property="CornerRadius" Value="10" />
+            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                        <GradientStop Color="#1388d6" Offset="1.0" />
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <fcu:Style
+            x:Key="MainButtonStyle"
+            BasedOn="{StaticResource ButtonRevealStyle}"
+            TargetType="Button">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0.7" />
+            <Setter Property="CornerRadius" Value="0" />
+        </fcu:Style>
+        <fcu:Style
+            x:Key="CalculateButtonStyle"
+            TargetType="Button">
+            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="CornerRadius" Value="3" />
+            <Setter Property="Foreground" Value="White" />
+        </fcu:Style>
+        <Style x:Key="AboutButtonIconStyle" TargetType="FontIcon">
+            <Setter Property="Glyph" Value="&#xE946;" />
+        </Style>
+        <Style x:Key="SettingsButtonIconStyle" TargetType="FontIcon">
+            <Setter Property="Glyph" Value="&#xE713;" />
+        </Style>
+        <Style x:Key="TeachingTipButtonIconStyle" TargetType="FontIcon">
+            <Setter Property="Glyph" Value="&#xE897;" />
+        </Style>
+        <Style x:Key="UpdateUserInterfaceButtonIconStyle" TargetType="FontIcon">
+            <Setter Property="Glyph" Value="&#xE72C;" />
+        </Style>
+    </Page.Resources>
+
+    <Grid>
+
+        <ProgressBar VerticalAlignment="Top"
+                     x:Name="StatusBar"
+                     IsIndeterminate="True" />
+
+        <ContentDialog
+            x:Uid="blankInputDialog"
+            SizeChanged="BlankInputDialog_SizeChanged"
+            x:Name="blankInputDialog"
+            CornerRadius="20"
+            CloseButtonStyle="{StaticResource ButtonStyle}"
+            Title="Blank input"
+            Content="Enter a positive integer."
+            CloseButtonText="Ok">
+            <ContentDialog.Resources>
+                <ResourceDictionary>
+                    <ResourceDictionary.ThemeDictionaries>
+                        <ResourceDictionary x:Key="Dark">
+                            <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="White" />
+                            <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#1388d6" />
+                            <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="#1388d6" Opacity=".8" />
+                            <SolidColorBrush x:Key="ButtonForegroundPressed" Color="White" />
+                        </ResourceDictionary>
+                    </ResourceDictionary.ThemeDictionaries>
+                </ResourceDictionary>
+            </ContentDialog.Resources>
+        </ContentDialog>
+
+        <StackPanel x:Name="contentPanel" Margin="0,50,0,0" HorizontalAlignment="Center">
+            <TextBlock HorizontalAlignment="Left" FontSize="20" Text="UWP Fibonacci" Height="Auto" Width="Auto"></TextBlock>
+            <StackPanel x:Name="inputPanel" Orientation="Horizontal" Margin="0,20,0,20">
+                <TextBox
+                    x:Uid="dataInput"
+                    x:Name="dataInput"
+                    HorizontalAlignment="Left"
+                    PlaceholderText="Enter a number..."
+                    CornerRadius="3"
+                    BeforeTextChanging="DataInput_BeforeTextChanging"
+                    TextWrapping="Wrap"
+                    Width="300" />
+                <Button
+                    x:Uid="calculateButton"
+                    x:Name="calculateButton"
+                    Content="Calculate"
+                    Style="{StaticResource CalculateButtonStyle}"
+                    Width="Auto"
+                    Height="Auto"
+                    Click="CalculateButton_Click">
+                </Button>
+            </StackPanel>
+            <Grid>
+                <TextBlock x:Uid="resultOutput" x:Name="resultOutput" Width="Auto" Height="Auto" />
+                <TextBlock x:Uid="elapsedTime" x:Name="elapsedTime" Width="Auto" Height="Auto" HorizontalAlignment="Right" />
+            </Grid>
+        </StackPanel>
+        <controls:TeachingTip  x:Uid="MainTeachingTip" x:Name="MainTeachingTip"
+            Title="UWP Fibonacci"
+            Subtitle="Enter a number in the textbox"
+            PreferredPlacement="Center">
+            <controls:TeachingTip.IconSource>
+                <controls:SymbolIconSource Symbol="Help" />
+            </controls:TeachingTip.IconSource>
+        </controls:TeachingTip>
+    </Grid>
+    <Page.BottomAppBar>
+        <CommandBar x:Name="MainCommandBar" Background="Transparent">
+            <CommandBar.Content>
+                <AppBarButton
+                    x:Name="Settings"
+                    Style="{StaticResource MainButtonStyle}"
+                    Height="40"
+                    Width="40"
+                    Icon="Setting"
+                    Click="Settings_Click"
+                    IsCompact="True">
+                    <FontIcon FontSize="16" Style="{StaticResource SettingsButtonIconStyle}" />
+                </AppBarButton>
+            </CommandBar.Content>
+            <AppBarButton
+                    x:Name="UpdateInterface"
+                    IsCompact="True"
+                    Click="UpdateInterface_Click"
+                    Height="40"
+                    Width="40"
+                    Style="{StaticResource MainButtonStyle}">
+                <FontIcon FontSize="16" Style="{StaticResource UpdateUserInterfaceButtonIconStyle}"></FontIcon>
+            </AppBarButton>
+            <AppBarButton
+                    x:Name="TeachingTip"
+                    IsCompact="True"
+                    Click="TeachingTip_Click"
+                    Height="40"
+                    Width="40"
+                    Style="{StaticResource MainButtonStyle}">
+                <FontIcon FontSize="16" Style="{StaticResource TeachingTipButtonIconStyle}"></FontIcon>
+            </AppBarButton>
+            <AppBarButton
+                    x:Name="About"
+                    IsCompact="True"
+                    Click="About_Click"
+                    Height="40"
+                    Width="40"
+                    Style="{StaticResource MainButtonStyle}">
+                <FontIcon FontSize="16" Style="{StaticResource AboutButtonIconStyle}"></FontIcon>
+            </AppBarButton>
+        </CommandBar>
+    </Page.BottomAppBar>
+</Page>

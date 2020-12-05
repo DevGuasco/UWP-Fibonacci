@@ -1,0 +1,96 @@
+﻿<Page
+    x:Class="UWP_Fibonacci.View.AboutPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:fcu="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract,5)"
+    mc:Ignorable="d"
+    RequestedTheme="Dark">
+
+    <Page.Resources>
+        <Style x:Key="BackButtonIconStyle" TargetType="FontIcon">
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="Foreground" Value="{ThemeResource SystemBaseHighColor}" />
+            <Setter Property="Glyph" Value="&#xE0A6;" />
+            <Setter Property="FontFamily" Value="Segoe MDL2 Assets" />
+            <Setter Property="FontWeight" Value="Black" />
+        </Style>
+        <fcu:Style
+            x:Key="MainButtonStyle"
+            BasedOn="{StaticResource ButtonRevealStyle}"
+            TargetType="Button">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0.7" />
+            <Setter Property="CornerRadius" Value="0" />
+        </fcu:Style>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Button
+            x:Name="Back_Button"
+            Height="40"
+            Width="40"
+            Click="Back_Button_Click"
+            Style="{StaticResource MainButtonStyle}"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Stretch">
+            <FontIcon FontSize="12" Style="{StaticResource BackButtonIconStyle}" />
+        </Button>
+
+        <ScrollViewer Grid.Row="1">
+            <StackPanel Padding="12,0">
+                <StackPanel Margin="0,10">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <Image Grid.RowSpan="3" Source="/Assets/Logo.png" Width="70" Margin="0,0,10,0" />
+
+                        <TextBlock Grid.Column="1" Grid.Row="0" x:Name="AppNameTextBlock" FontWeight="SemiBold" />
+                        <TextBlock Grid.Column="1" Grid.Row="1" x:Name="DevNameTextBlock" Foreground="Gray" FontWeight="SemiLight" />
+                        <TextBlock Grid.Column="1" Grid.Row="2" x:Name="AppVersionTextBlock" Foreground="Gray" FontWeight="SemiLight" />
+                    </Grid>
+
+                    <StackPanel>
+                        <TextBlock x:Uid="descriptionTextBox" HorizontalAlignment="Left" Margin="0, 20, 0, 0" Height="Auto" Width="290" TextWrapping="WrapWholeWords"
+                                   Text="Una semplice app per dimostrare l'uso della programmazione asincrona e delle funzionalità grafiche."></TextBlock>
+                    </StackPanel>
+
+                    <Grid Margin="0,10,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+
+                        <FontIcon Grid.Column="0" Grid.Row="0" Glyph="&#xE224;" Margin="0,0,8,0" />
+                        <HyperlinkButton Grid.Column="1" Grid.Row="0" x:Uid="SettingsGitHubButton" Click="GitHub_Click" />
+
+                        <FontIcon Grid.Column="0" Grid.Row="1" Glyph="&#xED15;" Margin="0,0,8,0" />
+                        <HyperlinkButton Grid.Column="1" Grid.Row="1" x:Uid="SettingsFeedbackButton" Click="FeedbackClick" />
+                    </Grid>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>
