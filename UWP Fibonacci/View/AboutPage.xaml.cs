@@ -37,7 +37,7 @@ namespace UWP_Fibonacci.View
 
         private async void GitHub_Click(object sender, RoutedEventArgs e)
         {
-            var uri = new Uri("https://github.com/DevGuasco");
+            var uri = new Uri("https://github.com/DevGuasco/UWP-Fibonacci");
             await Launcher.LaunchUriAsync(uri);
         }
     }
